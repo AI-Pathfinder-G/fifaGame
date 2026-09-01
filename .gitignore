@@ -11,21 +11,6 @@ MemoryCaptures/
 
 # Unity meta files should be kept (don't ignore *.meta)
 
-# Asset meta data should only be ignored when the temporary csproj and sln files are not being tracked
-*.csproj
-*.sln
-*.suo
-*.tmp
-*.user
-*.userprefs
-*.pidb
-*.booproj
-*.svd
-*.pdb
-*.mdb
-*.opendb
-*.VC.db
-
 # Unity3D generated file on crash reports
 sysinfo.txt
 
@@ -62,3 +47,14 @@ Desktop.ini
 
 # Generated docs
 docs/_build/
+
+# Unity project temp/log files
+UnityProject/Library/
+UnityProject/Temp/
+UnityProject/Obj/
+UnityProject/Build/
+UnityProject/Builds/
+UnityProject/Logs/
+UnityProject/UserSettings/
+UnityProject/MemoryCaptures/
+UnityProject/Recordings/
