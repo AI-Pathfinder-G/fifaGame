@@ -1,0 +1,64 @@
+# Unity
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+MemoryCaptures/
+[Rr]ecordings/
+
+# Unity meta files should be kept (don't ignore *.meta)
+
+# Asset meta data should only be ignored when the temporary csproj and sln files are not being tracked
+*.csproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# Unity3D generated file on crash reports
+sysinfo.txt
+
+# Unity Asset Store
+/A[s]ssets/AssetStoreTools*
+
+# Builds
+*.apk
+*.aab
+*.unitypackage
+*.app
+
+# Crashlytics generated file
+crashlytics-build.properties
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.swp
+*~
+
+# Logs
+*.log
+
+# Ollama / Local model cache
+.ollama/
+
+# Generated docs
+docs/_build/
