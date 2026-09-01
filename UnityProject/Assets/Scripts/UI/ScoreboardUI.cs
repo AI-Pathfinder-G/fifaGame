@@ -1,14 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 namespace SoccerGame.UI
 {
     public class ScoreboardUI : MonoBehaviour
     {
-        [SerializeField] private TMP_Text homeScoreText;
-        [SerializeField] private TMP_Text awayScoreText;
-        [SerializeField] private TMP_Text clockText;
+        [SerializeField] private Text homeScoreText;
+        [SerializeField] private Text awayScoreText;
+        [SerializeField] private Text clockText;
         [SerializeField] private Image possessionBar;
 
         public void UpdateScore(int h, int a)

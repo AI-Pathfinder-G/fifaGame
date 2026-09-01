@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 using SoccerGame.Core;
 using SoccerGame.Player;
 
@@ -13,7 +13,7 @@ namespace SoccerGame.UI
         [SerializeField] private ScoreboardUI scoreboard;
         [SerializeField] private RadarUI radar;
         [SerializeField] private GameObject pauseMenuPanel;
-        [SerializeField] private TMP_Text messageText;
+        [SerializeField] private Text messageText;
 
         private Coroutine _messageRoutine;
 

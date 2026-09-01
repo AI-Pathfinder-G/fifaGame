@@ -9,6 +9,8 @@ namespace SoccerGame.Core
 
         public TeamSide DefendingTeam => defendingTeam;
 
+        public void SetDefendingTeam(TeamSide team) { defendingTeam = team; }
+
         private void OnTriggerEnter(Collider other)
         {
             // Goal detection handled by BallCollisionHandler
