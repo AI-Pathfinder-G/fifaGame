@@ -28,8 +28,8 @@ namespace SoccerGame.Player
 
         private void HandleMovement()
         {
-            float horizontal = Input.GetAxis("Horizontal");
-            float vertical = Input.GetAxis("Vertical");
+            float horizontal = Input.GetAxisRaw("Horizontal");
+            float vertical = Input.GetAxisRaw("Vertical");
 
             Vector3 forward = cameraTransform != null ? cameraTransform.forward : Vector3.forward;
             Vector3 right = cameraTransform != null ? cameraTransform.right : Vector3.right;
@@ -54,15 +54,21 @@ namespace SoccerGame.Player
                 player.Stamina -= staminaDrainRate * Time.deltaTime;
             else
                 player.Stamina += staminaRegenRate * Time.deltaTime;
+
+            if (isMoving)
+            {
+                Quaternion targetRot = Quaternion.LookRotation(moveDirection, Vector3.up);
+                player.Rb.MoveRotation(Quaternion.Slerp(player.Rb.rotation, targetRot, 10f * Time.deltaTime));
+            }
         }
 
         private void HandleActions()
         {
-            if (Input.GetKeyDown(KeyCode.A)) FireAction("Pass");
-            if (Input.GetKeyDown(KeyCode.S)) FireAction("Shoot");
-            if (Input.GetKeyDown(KeyCode.Q)) FireAction("Through");
-            if (Input.GetKeyDown(KeyCode.E)) FireAction("Cross");
-            if (Input.GetKeyDown(KeyCode.D)) FireAction("Tackle");
+            if (Input.GetKeyDown(KeyCode.J)) FireAction("Pass");
+            if (Input.GetKeyDown(KeyCode.K)) FireAction("Shoot");
+            if (Input.GetKeyDown(KeyCode.I)) FireAction("Through");
+            if (Input.GetKeyDown(KeyCode.L)) FireAction("Cross");
+            if (Input.GetKeyDown(KeyCode.Space)) FireAction("Tackle");
 
             if (Input.GetKeyDown(KeyCode.Tab))
             {

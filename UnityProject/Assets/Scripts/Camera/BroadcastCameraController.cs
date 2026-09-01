@@ -4,8 +4,8 @@ namespace SoccerGame.Camera
 {
     public class BroadcastCameraController : MonoBehaviour
     {
-        [SerializeField] private float height = 25f;
-        [SerializeField] private float distance = 35f;
+        [SerializeField] private float height = 30f;
+        [SerializeField] private float distance = 50f;
         [SerializeField] private float followSpeed = 3f;
         [SerializeField] private float rotationSpeed = 2f;
         [SerializeField] private float lookAhead = 5f;

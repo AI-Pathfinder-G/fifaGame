@@ -1,12 +1,12 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEditor;
-using UnityEditor.SceneManagement;
-using UnityEngine.SceneManagement;
 
 public static class GameBuildPipeline
 {
     public static void BuildAll()
     {
+        GraphicsSettings.defaultRenderPipeline = null;
         MatchSceneBuilder.BuildMatchScene();
 
         string[] scenes = new string[]

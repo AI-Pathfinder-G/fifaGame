@@ -24,6 +24,7 @@ public static class MatchSceneBuilder
         CreateGoals();
         CreateBall();
         CreateCamera();
+        CreateLighting();
         CreatePlayers();
         CreateGameManager();
         CreateMatchSystems();
@@ -42,7 +43,7 @@ public static class MatchSceneBuilder
         field.transform.localScale = new Vector3(10.5f, 1f, 6.8f);
 
         Renderer r = field.GetComponent<Renderer>();
-        r.material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+        r.material = new Material(Shader.Find("Standard"));
         r.material.color = new Color(0.18f, 0.55f, 0.22f);
         r.material.name = "Grass";
 
@@ -79,7 +80,7 @@ public static class MatchSceneBuilder
         line.transform.position = pos;
         line.transform.localScale = scale;
         Renderer r = line.GetComponent<Renderer>();
-        r.material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+        r.material = new Material(Shader.Find("Standard"));
         r.material.color = color;
     }
 
@@ -98,7 +99,7 @@ public static class MatchSceneBuilder
             dot.transform.position = pos;
             dot.transform.localScale = new Vector3(0.5f, 0.02f, 0.5f);
             Renderer r = dot.GetComponent<Renderer>();
-            r.material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+            r.material = new Material(Shader.Find("Standard"));
             r.material.color = color;
         }
     }
@@ -150,7 +151,7 @@ public static class MatchSceneBuilder
             post.transform.localScale = new Vector3(0.1f, length * 0.5f, 0.1f);
         }
         Renderer r = post.GetComponent<Renderer>();
-        r.material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+        r.material = new Material(Shader.Find("Standard"));
         r.material.color = Color.white;
     }
 
@@ -174,7 +175,7 @@ public static class MatchSceneBuilder
         sc.radius = 0.11f;
 
         Renderer r = ballObj.GetComponent<Renderer>();
-        r.material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+        r.material = new Material(Shader.Find("Standard"));
         r.material.color = Color.white;
 
         BallEntity ball = ballObj.AddComponent<BallEntity>();
@@ -187,17 +188,27 @@ public static class MatchSceneBuilder
         GameObject camObj = new GameObject("MainCamera");
         camObj.tag = "MainCamera";
         Camera cam = camObj.AddComponent<Camera>();
-        cam.clearFlags = CameraClearFlags.SolidColor;
-        cam.backgroundColor = new Color(0.2f, 0.4f, 0.6f);
-        cam.fieldOfView = 40f;
-        cam.nearClipPlane = 0.1f;
-        cam.farClipPlane = 500f;
+        cam.clearFlags = CameraClearFlags.Skybox;
+        cam.fieldOfView = 50f;
+        cam.nearClipPlane = 0.3f;
+        cam.farClipPlane = 1000f;
 
         AudioListener listener = camObj.AddComponent<AudioListener>();
 
         BroadcastCameraController camCtrl = camObj.AddComponent<BroadcastCameraController>();
-        camObj.transform.position = new Vector3(0f, 25f, -40f);
-        camObj.transform.LookAt(Vector3.zero);
+        camObj.transform.position = new Vector3(0f, 30f, -50f);
+        camObj.transform.rotation = Quaternion.Euler(35f, 0f, 0f);
+    }
+
+    private static void CreateLighting()
+    {
+        GameObject lightObj = new GameObject("DirectionalLight");
+        Light light = lightObj.AddComponent<Light>();
+        light.type = LightType.Directional;
+        light.color = Color.white;
+        light.intensity = 1.2f;
+        light.shadows = LightShadows.Soft;
+        lightObj.transform.rotation = Quaternion.Euler(50f, -30f, 0f);
     }
 
     private static void CreatePlayers()
@@ -237,7 +248,7 @@ public static class MatchSceneBuilder
         body.transform.localScale = new Vector3(0.4f, 0.9f, 0.4f);
 
         Renderer r = body.GetComponent<Renderer>();
-        r.material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+        r.material = new Material(Shader.Find("Standard"));
         r.material.color = team == TeamSide.Home ? data.PrimaryColor : data.PrimaryColor;
 
         GameObject head = GameObject.CreatePrimitive(PrimitiveType.Sphere);
@@ -247,7 +258,7 @@ public static class MatchSceneBuilder
         head.transform.localScale = Vector3.one * 0.25f;
 
         Renderer hr = head.GetComponent<Renderer>();
-        hr.material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+        hr.material = new Material(Shader.Find("Standard"));
         hr.material.color = new Color(0.85f, 0.65f, 0.5f);
 
         CapsuleCollider col = playerObj.AddComponent<CapsuleCollider>();
@@ -320,6 +331,18 @@ public static class MatchSceneBuilder
         rso.ApplyModifiedProperties();
 
         AIManager aiMgr = matchObj.AddComponent<AIManager>();
+
+        GameObject cam = GameObject.Find("MainCamera");
+        if (cam != null && ball != null)
+        {
+            BroadcastCameraController camCtrl = cam.GetComponent<BroadcastCameraController>();
+            if (camCtrl != null)
+            {
+                SerializedObject camSo = new SerializedObject(camCtrl);
+                camSo.FindProperty("target").objectReferenceValue = ball.transform;
+                camSo.ApplyModifiedProperties();
+            }
+        }
     }
 
     private static void CreateUI()
