@@ -36,6 +36,22 @@ namespace SoccerGame.Match
         public bool IsMatchRunning => matchRunning;
         public MatchStats Stats => stats;
 
+        private void OnEnable()
+        {
+            GameEvents.SubscribeGoalScored(HandleGoalScored);
+        }
+
+        private void OnDisable()
+        {
+            GameEvents.UnsubscribeGoalScored(HandleGoalScored);
+        }
+
+        private void HandleGoalScored(string teamStr)
+        {
+            if (System.Enum.TryParse<TeamSide>(teamStr, out TeamSide scoringTeam))
+                ScoreGoal(scoringTeam);
+        }
+
         private void Awake()
         {
             if (!IsInitialized)

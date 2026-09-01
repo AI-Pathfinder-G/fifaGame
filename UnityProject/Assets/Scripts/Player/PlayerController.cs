@@ -47,8 +47,8 @@ namespace SoccerGame.Player
 
             float currentSpeed = player.IsSprinting ? sprintSpeed : moveSpeed;
             Vector3 velocity = moveDirection * currentSpeed;
-            velocity.y = player.Rb.velocity.y;
-            player.Rb.velocity = velocity;
+            velocity.y = player.Rb.linearVelocity.y;
+            player.Rb.linearVelocity = velocity;
 
             if (player.IsSprinting)
                 player.Stamina -= staminaDrainRate * Time.deltaTime;

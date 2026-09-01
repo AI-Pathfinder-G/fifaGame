@@ -21,8 +21,8 @@ namespace SoccerGame.AI
 
         public void Initialize()
         {
-            homeStrategy = new TeamStrategy();
-            awayStrategy = new TeamStrategy();
+            if (homeStrategy == null) homeStrategy = new TeamStrategy();
+            if (awayStrategy == null) awayStrategy = new TeamStrategy();
         }
 
         public TeamStrategy GetStrategy(TeamSide side)

@@ -19,7 +19,7 @@ namespace SoccerGame.Player
             if (animator == null || player == null || player.Rb == null)
                 return;
 
-            Vector3 velocity = player.Rb.velocity;
+            Vector3 velocity = player.Rb.linearVelocity;
             Vector3 planarVelocity = new Vector3(velocity.x, 0f, velocity.z);
             float speed = planarVelocity.magnitude;
 
